@@ -1,7 +1,6 @@
 package com.ajeet.learnings.streaming.meetup;
 
 import com.amazonaws.services.kinesis.producer.KinesisProducer;
-import com.amazonaws.services.kinesis.producer.KinesisProducerConfiguration;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,13 +11,17 @@ import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import static com.amazonaws.SDKGlobalConfiguration.ACCESS_KEY_SYSTEM_PROPERTY;
+import static com.amazonaws.SDKGlobalConfiguration.SECRET_KEY_SYSTEM_PROPERTY;
+
 public final class MeetupProducer {
     private static final String MEETUP_ENDPOINT = "http://stream.meetup.com/2/rsvps";
-    private static final String STREAM_NAME = "meetupRSVPEvents"
-            ;
+    private static final String STREAM_NAME = "MeetupRSVPEvent";
+
     private static final KinesisProducer getProducer(){
-        KinesisProducerConfiguration config = new KinesisProducerConfiguration();
-        return new KinesisProducer(config);
+        System.setProperty(ACCESS_KEY_SYSTEM_PROPERTY, "AKIAJ*************J6TA");
+        System.setProperty(SECRET_KEY_SYSTEM_PROPERTY, "b/45DMo**************VrwSaE9");
+        return new KinesisProducer();
     }
 
     private static final JsonParser getMeetupJsonParser() throws IOException {
